@@ -10,7 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomResponseDTO {
-
     private Object responseObject;
     private String responseMessage;
 }

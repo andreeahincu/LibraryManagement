@@ -6,18 +6,21 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class BookDTO {
+    @NotNull(message = "The book needs an id")
+    private Long id;
 
-    @NotBlank(message = "The book needs a name")
-    private String name;
+    @NotBlank(message = "The book needs a title")
+    private String title;
 
     @NotBlank(message = "The book needs an author")
     private String author;
 
-    @Positive(message = "The book needs an ISBN")
-    private int ISBN;
+    private int quantity;
 }
