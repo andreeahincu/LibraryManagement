@@ -23,7 +23,7 @@ public class BookController {
     }
 
     @PostMapping(path = "/book")
-    public ResponseEntity<CustomResponseDTO> makeBook(@RequestBody @Valid BookCreateDTO bookCreateDTO, BindingResult bindingResult){
+    public ResponseEntity<CustomResponseDTO> createBook(@RequestBody @Valid BookCreateDTO bookCreateDTO, BindingResult bindingResult){
         CustomResponseDTO customResponseDTO = new CustomResponseDTO();
 
         if(bindingResult.hasErrors()){
@@ -32,10 +32,10 @@ public class BookController {
             customResponseDTO.setResponseMessage(errorMessage);
             return new ResponseEntity<>(customResponseDTO, HttpStatus.BAD_REQUEST);
         }
-        BookSearchDTO bookSearchDTO = bookService.makeBook(bookCreateDTO);
+        BookSearchDTO bookSearchDTO = bookService.createBook(bookCreateDTO);
 
         customResponseDTO.setResponseObject(bookSearchDTO);
         customResponseDTO.setResponseMessage("Book made successfully");
-        return new ResponseEntity<>(customResponseDTO, HttpStatus.CREATED)
+        return new ResponseEntity<>(customResponseDTO, HttpStatus.CREATED);
     }
 }
