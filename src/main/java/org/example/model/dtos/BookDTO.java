@@ -22,5 +22,5 @@ public class BookDTO {
     @NotBlank(message = "The book needs an author")
     private String author;
 
-    private int quantity;
+   // private int quantity;
 }

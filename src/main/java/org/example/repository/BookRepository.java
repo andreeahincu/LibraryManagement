@@ -12,11 +12,14 @@ public class BookRepository {
     // temporar pana la DB
     private Map<String, Long> bookList = new HashMap<>();
 
-    public Book createBook(Book bookToSave){
-        bookList.put(bookToSave.getTitle(), bookToSave.getId());
-        return bookToSave;
-    }
-
+//    public Book createBook(Book bookToSave){
+//        bookList.put(bookToSave.getTitle(), bookToSave.getId());
+//        return bookToSave;
+//    }
+    public Book save(Book book){
+    bookList.put(book.getTitle(), book.getId());
+    return book;
+}
     public Map<String, Long> getAllBooks(){
         return bookList;
     }
@@ -29,4 +32,6 @@ public class BookRepository {
     public void deleteBook(String title){
         bookList.remove(title);
     }
+
+
 }
