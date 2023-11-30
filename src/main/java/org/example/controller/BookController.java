@@ -23,20 +23,20 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @PostMapping(path = "/book")
-    public ResponseEntity<CustomResponseDTO> createBook(@RequestBody @Valid BookCreateDTO bookCreateDTO, BindingResult bindingResult){
-        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
-
-        if(bindingResult.hasErrors()){
-            String errorMessage = bindingResult.getFieldError().getDefaultMessage();
-            customResponseDTO.setResponseObject(null);
-            customResponseDTO.setResponseMessage(errorMessage);
-            return new ResponseEntity<>(customResponseDTO, HttpStatus.BAD_REQUEST);
-        }
-        BookSearchDTO bookSearchDTO = bookService.createBook(bookCreateDTO);
-
-        customResponseDTO.setResponseObject(bookSearchDTO);
-        customResponseDTO.setResponseMessage("Book made successfully");
-        return new ResponseEntity<>(customResponseDTO, HttpStatus.CREATED);
-    }
+//    @PostMapping(path = "/book")
+//    public ResponseEntity<CustomResponseDTO> createBook(@RequestBody @Valid BookCreateDTO bookCreateDTO, BindingResult bindingResult){
+//        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
+//
+//        if(bindingResult.hasErrors()){
+//            String errorMessage = bindingResult.getFieldError().getDefaultMessage();
+//            customResponseDTO.setResponseObject(null);
+//            customResponseDTO.setResponseMessage(errorMessage);
+//            return new ResponseEntity<>(customResponseDTO, HttpStatus.BAD_REQUEST);
+//        }
+//        BookSearchDTO bookSearchDTO = bookService.createBook(bookCreateDTO);
+//
+//        customResponseDTO.setResponseObject(bookSearchDTO);
+//        customResponseDTO.setResponseMessage("Book made successfully");
+//        return new ResponseEntity<>(customResponseDTO, HttpStatus.CREATED);
+//    }
 }
