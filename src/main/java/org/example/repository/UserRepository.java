@@ -2,9 +2,8 @@ package org.example.repository;
 
 import org.example.model.entities.User;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserRepository {
     private final Map<Long, User> users = new HashMap<>();
@@ -31,6 +30,17 @@ public class UserRepository {
         return Optional.ofNullable(users.get(id));
     }
 
+    public List<User> findUserByUsername(String username){
+       return users.values().stream()
+               .filter( user -> user.getUsername().contains(username) )
+               .collect(Collectors.toList() );
+    }
+
+    public List<User> findUserByEmail(String email){
+        return users.values().stream()
+                .filter( user -> user.getUsername().contains(email) )
+                .collect(Collectors.toList() );
+    }
     public void deleteById(Long id){
         users.remove(id);
     }
