@@ -14,7 +14,11 @@ import lombok.Setter;
 @Setter
 public class BookDTO {
     private Long id;
+
+    @NotBlank(message = "title is mandatory")
     private String title;
+
+    @NotBlank(message = "at least one author is mandatory")
     private String author;
 
 }

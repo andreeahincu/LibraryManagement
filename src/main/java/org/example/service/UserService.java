@@ -1,5 +1,6 @@
 package org.example.service;
 
+import jakarta.transaction.Transactional;
 import org.example.model.dtos.UserDTO;
 import org.example.model.entities.User;
 import org.example.repository.UserRepository;
@@ -28,6 +29,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User findUserById(Long id){
+
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
     public UserDTO updateUser(Long id, UserDTO userDTO){
         // retrieve the existing user from the repository
         User existingUser = userRepository.findById(id)
@@ -38,31 +45,31 @@ public class UserService {
         existingUser.setEmail(userDTO.getEmail());
 
         // call the method from the repository to persist the changes
-        User updatedUser = userRepository.update(existingUser);
+        User updatedUser = new User(id, existingUser.getUsername(), existingUser.getEmail());
 
         // map the updated user entity to a DTO before returning it
         return userMapper.mapUserEntityToUserDTO(updatedUser);
     }
 
-    public User findUserById(Long id){
-        return userRepository.findById(id).orElse(null);
-    }
-
-    public List<UserDTO> findUsersByUsername(String username){
-        return userRepository.findUserByUsername(username).stream()
-                .map(entity ->userMapper.mapUserEntityToUserDTO(entity))
-                .collect(Collectors.toList());
-    }
-
-    public List<UserDTO> findUsersByEmail(String email){
-        return userRepository.findUserByUsername(email).stream()
-                .map(entity ->userMapper.mapUserEntityToUserDTO(entity))
-                .collect(Collectors.toList());
-    }
-
     public void deleteUserById(Long id){
         userRepository.deleteById(id);
     }
+
+
+//    public List<UserDTO> findUsersByUsername(String username){
+//        return userRepository.findByUsername(username).stream()
+//                .map(entity ->userMapper.mapUserEntityToUserDTO(entity))
+//                .collect(Collectors.toList());
+//
+//    }
+//
+//    public List<UserDTO> findUsersByEmail(String email){
+//        return userRepository.findByEmail(email).stream()
+//                .map(entity ->userMapper.mapUserEntityToUserDTO(entity))
+//                .collect(Collectors.toList());
+//    }
+
+
 
 
 }

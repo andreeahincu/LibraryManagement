@@ -25,7 +25,7 @@ public class BookController {
         this.bookMapper = bookMapper;
     }
 
-    @PostMapping(path = "/book")
+    @PostMapping(path = "/createBook")
     public ResponseEntity<CustomResponseDTO> createBook(@RequestBody BookDTO bookDTO, BindingResult bindingResult) {
         CustomResponseDTO customResponseDTO = new CustomResponseDTO();
 
@@ -60,38 +60,12 @@ public class BookController {
         return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/findBooksByTitle/{title}")
-    public ResponseEntity<CustomResponseDTO> getBooksByTitle(@PathVariable String title) {
-
-        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
-
-        List<BookDTO> foundBooksByTitle = bookService.findBookByTitle(title);
-        if( Objects.isNull(foundBooksByTitle) || foundBooksByTitle.isEmpty() ){
-            customResponseDTO.setResponseMessage("No book was found by this title");
-            return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
-        }
-        customResponseDTO.setResponseObject(foundBooksByTitle);
-        customResponseDTO.setResponseMessage("Book found successfully");
-        return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
+    @GetMapping(path = "/getAllBooks")
+    public List<BookDTO> getAllBooks(){
+        return bookService.getAllBooks();
     }
 
-    @GetMapping("/findBooksByAuthor/{author}")
-    public ResponseEntity<CustomResponseDTO> getBooksByAuthor(@PathVariable String author) {
-
-        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
-
-        List<BookDTO> foundBooksByAuthor = bookService.findBookByAuthor(author);
-        if( Objects.isNull(foundBooksByAuthor) || foundBooksByAuthor.isEmpty() ){
-            customResponseDTO.setResponseMessage("No book was found by this title");
-            return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
-        }
-        customResponseDTO.setResponseObject(foundBooksByAuthor);
-        customResponseDTO.setResponseMessage("Book found successfully");
-        return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
-    }
-
-
-    @PutMapping
+    @PutMapping("/updateBook/{bookId}")
     public ResponseEntity<CustomResponseDTO> updateBook(@PathVariable Long bookId, @RequestBody @Valid BookDTO bookDTO, BindingResult bindingResult){
         CustomResponseDTO customResponseDTO = new CustomResponseDTO();
 
@@ -117,12 +91,39 @@ public class BookController {
         }
     }
 
-    @DeleteMapping(path = "/book")
+    @DeleteMapping(path = "/deleteBook/{id}")
     public ResponseEntity deleteBook(@PathVariable Long id){
         bookService.deleteBookById(id);
         return new ResponseEntity("Book deleted", HttpStatus.OK);
     }
 
-
-
+//    @GetMapping("/getBooksByTitle/{title}")
+//    public ResponseEntity<CustomResponseDTO> getBooksByTitle(@PathVariable String title) {
+//
+//        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
+//
+//        List<BookDTO> foundBooksByTitle = bookService.findBookByTitle(title);
+//        if( Objects.isNull(foundBooksByTitle) || foundBooksByTitle.isEmpty() ){
+//            customResponseDTO.setResponseMessage("No book was found by this title");
+//            return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
+//        }
+//        customResponseDTO.setResponseObject(foundBooksByTitle);
+//        customResponseDTO.setResponseMessage("Book found successfully");
+//        return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/getBooksByAuthor/{author}")
+//    public ResponseEntity<CustomResponseDTO> getBooksByAuthor(@PathVariable String author) {
+//
+//        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
+//
+//        List<BookDTO> foundBooksByAuthor = bookService.findBookByAuthor(author);
+//        if( Objects.isNull(foundBooksByAuthor) || foundBooksByAuthor.isEmpty() ){
+//            customResponseDTO.setResponseMessage("No book was found by this title");
+//            return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
+//        }
+//        customResponseDTO.setResponseObject(foundBooksByAuthor);
+//        customResponseDTO.setResponseMessage("Book found successfully");
+//        return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
+//    }
 }

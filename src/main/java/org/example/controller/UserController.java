@@ -29,7 +29,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @PostMapping(path = "/user")
+    @PostMapping(path = "/createUser")
     public ResponseEntity<CustomResponseDTO> createUser(@RequestBody UserDTO userDTO, BindingResult bindingResult) {
         CustomResponseDTO customResponseDTO = new CustomResponseDTO();
 
@@ -64,38 +64,7 @@ public class UserController {
         return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/findUsersByUsername/{username}")
-    public ResponseEntity<CustomResponseDTO> getUsersByUsername(@PathVariable String username) {
-
-    CustomResponseDTO customResponseDTO = new CustomResponseDTO();
-
-    List<UserDTO> foundUsersByUsername = userService.findUsersByUsername(username);
-    if( Objects.isNull(foundUsersByUsername) || foundUsersByUsername.isEmpty() ){
-        customResponseDTO.setResponseMessage("No user was found by this username");
-        return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
-    }
-    customResponseDTO.setResponseObject(foundUsersByUsername);
-    customResponseDTO.setResponseMessage("User found successfully");
-    return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
-}
-
-    @GetMapping("/findUsersByEmail/{email}")
-    public ResponseEntity<CustomResponseDTO> getUsersByEmail(@PathVariable String email) {
-
-        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
-
-        List<UserDTO> foundUsersByEmail = userService.findUsersByUsername(email);
-        if( Objects.isNull(foundUsersByEmail) || foundUsersByEmail.isEmpty() ){
-            customResponseDTO.setResponseMessage("No user was found by this username");
-            return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
-        }
-        customResponseDTO.setResponseObject(foundUsersByEmail);
-        customResponseDTO.setResponseMessage("User found successfully");
-        return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
-    }
-
-
-    @PutMapping
+    @PutMapping(path = "/updateUser/{userId}")
     public ResponseEntity<CustomResponseDTO> updateUser(@PathVariable Long userId, @RequestBody @Valid UserDTO userDTO, BindingResult bindingResult){
         CustomResponseDTO customResponseDTO = new CustomResponseDTO();
 
@@ -121,10 +90,43 @@ public class UserController {
         }
     }
 
-    @DeleteMapping(path = "/user")
+    @DeleteMapping(path = "/deleteUser/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id){
         userService.deleteUserById(id);
         return new ResponseEntity("User deleted", HttpStatus.OK);
     }
+
+//    @GetMapping("/getUsersByUsername/{username}")
+//    public ResponseEntity<CustomResponseDTO> getUsersByUsername(@PathVariable String username) {
+//
+//    CustomResponseDTO customResponseDTO = new CustomResponseDTO();
+//
+//    List<UserDTO> foundUsersByUsername = userService.findUsersByUsername(username);
+//    if( Objects.isNull(foundUsersByUsername) || foundUsersByUsername.isEmpty() ){
+//        customResponseDTO.setResponseMessage("No user was found by this username");
+//        return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
+//    }
+//    customResponseDTO.setResponseObject(foundUsersByUsername);
+//    customResponseDTO.setResponseMessage("User found successfully");
+//    return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
+//}
+//
+//    @GetMapping("/getUsersByEmail/{email}")
+//    public ResponseEntity<CustomResponseDTO> getUsersByEmail(@PathVariable String email) {
+//
+//        CustomResponseDTO customResponseDTO = new CustomResponseDTO();
+//
+//        List<UserDTO> foundUsersByEmail = userService.findUsersByUsername(email);
+//        if( Objects.isNull(foundUsersByEmail) || foundUsersByEmail.isEmpty() ){
+//            customResponseDTO.setResponseMessage("No user was found by this username");
+//            return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
+//        }
+//        customResponseDTO.setResponseObject(foundUsersByEmail);
+//        customResponseDTO.setResponseMessage("User found successfully");
+//        return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
+//    }
+
+
+
 
 }
