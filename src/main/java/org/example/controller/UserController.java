@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
@@ -112,7 +112,7 @@ public class UserController {
             customResponseDTO.setResponseObject(updatedUser);
             customResponseDTO.setResponseMessage("User updated successfully");
 
-            return new ResponseEntity<>(customResponseDTO, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(customResponseDTO, HttpStatus.OK);
         } catch(RuntimeException e){
             customResponseDTO.setResponseObject(null);
             customResponseDTO.setResponseMessage(e.getMessage());

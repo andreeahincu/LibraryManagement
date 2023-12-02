@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserMapper {
     public User mapUserDTOToUserEntity(UserDTO userDTO){
-        User user = new User;
+        User user = new User();
         user.setId(userDTO.getId());
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
